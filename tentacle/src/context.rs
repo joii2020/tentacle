@@ -72,6 +72,19 @@ pub struct SessionContext {
     pending_data_size: Arc<AtomicUsize>,
 }
 
+impl Default for SessionContext {
+    fn default() -> Self {
+        Self {
+            id: SessionId::default(),
+            address: Multiaddr::try_from("").unwrap(),
+            ty: SessionType::Inbound,
+            remote_pubkey: None,
+            closed: Arc::new(AtomicBool::default()),
+            pending_data_size: Arc::new(AtomicUsize::default()),
+        }
+    }
+}
+
 impl SessionContext {
     pub(crate) fn new(
         id: SessionId,
@@ -124,9 +137,19 @@ pub struct ServiceContext {
     inner: ServiceAsyncControl,
 }
 
+impl Default for ServiceContext {
+    fn default() -> Self {
+        Self {
+            listens: Vec::new(),
+            key_pair: None,
+            inner: ServiceAsyncControl::default(),
+        }
+    }
+}
+
 impl ServiceContext {
     /// New
-    pub(crate) fn new(
+    pub fn new(
         task_sender: mpsc::Sender<ServiceTask>,
         proto_infos: HashMap<ProtocolId, ProtocolInfo>,
         key_pair: Option<SecioKeyPair>,
@@ -345,15 +368,17 @@ pub struct ProtocolContext {
 }
 
 impl ProtocolContext {
-    pub(crate) fn new(service_context: ServiceContext, proto_id: ProtocolId) -> Self {
+    /// TODO
+    pub fn new(service_context: ServiceContext, proto_id: ProtocolId) -> Self {
         ProtocolContext {
             inner: service_context,
             proto_id,
         }
     }
 
+    /// TODO
     #[inline]
-    pub(crate) fn as_mut<'a, 'b: 'a>(
+    pub fn as_mut<'a, 'b: 'a>(
         &'b mut self,
         session: &'a SessionContext,
     ) -> ProtocolContextMutRef<'a> {

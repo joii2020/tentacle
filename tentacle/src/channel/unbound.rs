@@ -286,6 +286,7 @@ impl<T> UnboundedSender<T> {
         })
     }
 
+    /// TODO
     // Send a message on the channel with async fn, doesn't use Sink trait
     pub async fn async_send(&self, msg: T) -> Result<(), SendError> {
         let mut msg = Some(msg);
@@ -302,6 +303,7 @@ impl<T> UnboundedSender<T> {
         .await
     }
 
+    /// TODO
     // Send a message on the channel with async fn, doesn't use Sink trait
     pub async fn async_quick_send(&self, msg: T) -> Result<(), SendError> {
         let mut msg = Some(msg);

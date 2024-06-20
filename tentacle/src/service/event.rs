@@ -114,7 +114,7 @@ pub enum ServiceEvent {
 /// Task received by the Service.
 ///
 /// An instruction that the outside world can send to the service
-pub(crate) enum ServiceTask {
+pub enum ServiceTask {
     /// Send protocol data task
     ProtocolMessage {
         /// Specify which sessions to send to,

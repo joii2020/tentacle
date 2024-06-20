@@ -11,7 +11,8 @@ mod sink_impl;
 mod tests;
 mod unbound;
 
-pub(crate) mod mpsc {
+/// TODO
+pub mod mpsc {
     pub use super::bound::{channel, Receiver, Sender};
     pub use super::unbound::{unbounded, UnboundedReceiver, UnboundedSender};
     pub use super::{Priority, SendError, TrySendError};
@@ -172,11 +173,15 @@ impl fmt::Display for TryRecvError {
 /// Priority for send
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum Priority {
+    /// TODO
     High,
+
+    /// TODO
     Normal,
 }
 
 impl Priority {
+    /// TODO
     #[inline]
     pub fn is_high(self) -> bool {
         match self {

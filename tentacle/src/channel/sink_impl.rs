@@ -80,8 +80,10 @@ impl<T> Sink<T> for &UnboundedSender<T> {
 /// while the `QuickSinkExt` will use the quick series interface as the sending method.
 /// Currently, only simple send async is implemented.
 pub trait QuickSinkExt<Item>: Sink<Item> {
+    /// TODO
     fn start_quick_send(&mut self, item: Item) -> Result<(), Self::Error>;
 
+    /// TODO
     fn quick_send(&mut self, item: Item) -> QuickSend<'_, Self, Item>
     where
         Self: Unpin,

@@ -145,7 +145,7 @@ pub(crate) mod transports;
 /// Some useful functions
 pub mod utils;
 
-mod channel;
+pub mod channel;
 #[cfg_attr(not(feature = "unstable"), doc(hidden))]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable")))]
 #[allow(missing_docs)]

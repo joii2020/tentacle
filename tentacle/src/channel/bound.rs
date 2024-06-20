@@ -436,6 +436,7 @@ impl<T> Sender<T> {
         }
     }
 
+    /// TODO
     // Send a message on the channel with async fn, doesn't use Sink trait
     pub async fn async_send(&self, msg: T) -> Result<(), SendError> {
         let mut msg = Some(msg);
@@ -452,10 +453,12 @@ impl<T> Sender<T> {
         .await
     }
 
+    /// TODO
     // Send a message on the channel with async fn, doesn't use Sink trait
     pub async fn async_quick_send(&self, msg: T) -> Result<(), SendError> {
         let mut msg = Some(msg);
-        poll_fn(|cx| {
+
+        let r = poll_fn(|cx| {
             let item = msg.take().unwrap();
             match self.poll_ready(cx)? {
                 Poll::Ready(()) => Poll::Ready(self.start_quick_send(item)),
@@ -465,7 +468,8 @@ impl<T> Sender<T> {
                 }
             }
         })
-        .await
+        .await;
+        r
     }
 
     /// Send a message on the channel.

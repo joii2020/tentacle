@@ -281,6 +281,17 @@ pub struct ServiceAsyncControl {
     closed: Arc<AtomicBool>,
 }
 
+impl Default for ServiceAsyncControl {
+    fn default() -> Self {
+        let (s, _r) = mpsc::channel(0);
+        Self {
+            task_sender: s,
+            proto_infos: Arc::new(HashMap::new()),
+            closed: Arc::new(AtomicBool::default()),
+        }
+    }
+}
+
 impl ServiceAsyncControl {
     /// Send raw event
     async fn send(&self, event: ServiceTask) -> Result {
